@@ -1,6 +1,6 @@
 "use client";
 import { ModeToggle } from "@/components/common/dark-mode-toggle";
-import { LoginForm } from "@/components/forms/login-form";
+import { SignUpForm } from "@/components/forms/signup-form";
 
 export default function Page() {
   return (
@@ -9,7 +9,7 @@ export default function Page() {
         <ModeToggle />
       </div>
       <div className="w-full max-w-sm">
-        <LoginForm />
+        <SignUpForm />
       </div>
     </div>
   );
