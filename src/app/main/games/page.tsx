@@ -1,3 +1,11 @@
+'use client'
+
+import GamesTable from "@/components/common/games-table";
+
 export default function Games() {
-  return <h2></h2>;
+  return (
+    <div>
+      <GamesTable/>         
+    </div>
+  );
 }
