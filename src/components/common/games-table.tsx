@@ -1,31 +1,25 @@
 "use client";
 
 import { Game } from "@/types/game";
-import { useEffect, useState } from "react";
 import { CardGame } from "./card-game";
+import { useQuery } from "@tanstack/react-query";
+import { getGames } from "@/app/data/game";
 
-export default function GamesTable(props: any) {
-  const [games, setGames] = useState([]);
-  const [limit, setLimit] = useState(10);
-  const [offset, setOffset] = useState(0);
+export default function GamesTable() {
 
-  useEffect(() => {
-    fetchGames();
-  }, []);
-
-  async function fetchGames() {
-    const data = await fetch("/api/getGames", {
-      method: "POST",
-      body: JSON.stringify({ limit, offset }),
-    });
-    setGames(await data.json());
-  }
+  const { data: games } = useQuery({
+    queryFn: () => getGames(8, 0),
+    queryKey: ['get-games'],
+    retry: false
+  })
 
   return (
     <div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 p-16">
-      {games.map((game: Game) => (
+      {games?.data.map((game: Game) => (
         <CardGame game={game} key={game.id} />
       ))}
     </div>
   );
 }
+
+

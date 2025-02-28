@@ -12,8 +12,9 @@ export function CardGame(props: CardGameProps) {
         <Image
           src={"https:" + props.game.cover.url.replace("t_thumb", "t_1080p")}
           alt={props.game.name}
-          width={120}
-          height={120}
+          width={90}
+          height={90}
+          className="rounded-l-xl"  // Adicionando bordas arredondadas aqui
         />
         <h1>{props.game.name}</h1>
         <h1>{props.game.aggregated_rating}</h1>

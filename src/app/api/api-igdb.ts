@@ -1,11 +1,11 @@
 import axios, { AxiosInstance } from "axios";
 
 const apiIgdb: AxiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_IGDB_URL,
+  baseURL: "/api/igdb",
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'text/plain', 
-    "Client-ID": "5bdscsiy0xzjdzdud6f7wbs76siaxi",
+    "Client-ID": process.env.API_IGDB_CLIENTID,
     "Authorization": "Bearer " + process.env.API_IGDB_TOKEN,
   },
   timeout: 10000,

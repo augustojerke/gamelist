@@ -1,8 +1,6 @@
-'use client'
-
 import GamesTable from "@/components/common/games-table";
 
-export default function Games() {
+export default async function Games() {
   return (
     <div>
       <GamesTable/>         
