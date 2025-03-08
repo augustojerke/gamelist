@@ -5,12 +5,13 @@ import { CardGame } from "./card-game";
 import { useQuery } from "@tanstack/react-query";
 import { getGames } from "@/app/data/game";
 import { LoadingSpinner } from "./loading-spinner";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
-export default function GamesTable({
-  limit = 32,
-  offset = 0,
-  searchGameName = "",
-}) {
+export default function GamesTable({ searchGameName = "" }) {
+  const limit = 16;
+  const [offset, setOffset] = useState(0);
+
   const { data: games, isPending } = useQuery({
     queryFn: () => getGames(limit, offset, searchGameName),
     queryKey: ["get-games", limit, offset, searchGameName],
@@ -26,10 +27,21 @@ export default function GamesTable({
   }
 
   return (
-    <div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mt-5">
-      {games?.data.map((game: Game) => (
-        <CardGame game={game} key={game.id} />
-      ))}
+    <div>
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mt-5">
+        {games?.data.map((game: Game) => (
+          <CardGame game={game} key={game.id} />
+        ))}
+      </div>
+      <div className="flex justify-between mt-6">
+        <Button
+          onClick={() => setOffset((prev) => Math.max(0, prev - limit))}
+          disabled={offset === 0}
+        >
+          Previous
+        </Button>
+        <Button onClick={() => setOffset((prev) => prev + limit)}>Next</Button>
+      </div>
     </div>
   );
 }
