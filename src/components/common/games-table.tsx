@@ -6,10 +6,14 @@ import { useQuery } from "@tanstack/react-query";
 import { getGames } from "@/app/data/game";
 import { LoadingSpinner } from "./loading-spinner";
 
-export default function GamesTable() {
+export default function GamesTable({
+  limit = 32,
+  offset = 0,
+  searchGameName = "",
+}) {
   const { data: games, isPending } = useQuery({
-    queryFn: () => getGames(8, 0),
-    queryKey: ["get-games"],
+    queryFn: () => getGames(limit, offset, searchGameName),
+    queryKey: ["get-games", limit, offset, searchGameName],
     retry: false,
   });
 
@@ -22,7 +26,7 @@ export default function GamesTable() {
   }
 
   return (
-    <div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-5 p-16">
+    <div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mt-5">
       {games?.data.map((game: Game) => (
         <CardGame game={game} key={game.id} />
       ))}

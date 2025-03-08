@@ -6,4 +6,9 @@ export interface Game{
     }
     aggregated_rating: number | undefined
     first_release_date: Date
+    genres: [
+        {
+            name: string
+        }
+    ]
 }

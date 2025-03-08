@@ -1,6 +1,7 @@
-import { formateDateUnix } from "@/lib/dateUtils";
+import { formateDateUnixToYear } from "@/lib/dateUtils";
 import { Game } from "@/types/game";
 import Image from "next/image";
+import GameRating from "./game-rating";
 
 interface CardGameProps {
   game: Game;
@@ -11,7 +12,11 @@ export function CardGame(props: CardGameProps) {
     <div className="flex bg-secondary border border-border rounded-xl overflow-hidden">
       <div className="flex-shrink-0">
         <Image
-          src={"https:" + props.game.cover.url.replace("t_thumb", "t_1080p")}
+          src={
+            props.game.cover?.url
+              ? "https:" + props.game.cover.url.replace("t_thumb", "t_1080p")
+              : "https://upload.wikimedia.org/wikipedia/commons/6/6b/Black_Question_Mark.png"
+          }
           alt={props.game.name}
           width={70}
           height={80}
@@ -20,15 +25,27 @@ export function CardGame(props: CardGameProps) {
       </div>
       <div className="flex-1 flex flex-col justify-between p-3 text-left bg-card h-full shadow-xl overflow-hidden">
         <div>
-          <h1 className="font-bold text-xs truncate" title={props.game.name}>
+          <h1 className="font-bold text-sm truncate" title={props.game.name}>
             {props.game.name}
           </h1>
-          <h2 className="text-slate-600 text-xs font-semibold">
-            {formateDateUnix(Number(props.game.first_release_date))}
+          <h2 className="text-slate-400 text-xs font-semibold">
+            {formateDateUnixToYear(Number(props.game.first_release_date))}
           </h2>
         </div>
-        <div className="text-right">
-          <h1 className="text-xs">{props.game.aggregated_rating}</h1>
+        <div className="flex justify-between items-center gap-5">
+          <h1
+            className="text-xs truncate max-w-[calc(100%-60px)] overflow-hidden text-slate-400"
+            title={
+              props.game.genres
+                ? props.game.genres.map((genre) => genre.name).join(", ")
+                : ""
+            }
+          >
+            {props.game.genres
+              ? props.game.genres.map((genre) => genre.name).join(", ")
+              : ""}
+          </h1>
+          <GameRating rating={props.game.aggregated_rating} />
         </div>
       </div>
     </div>
