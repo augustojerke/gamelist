@@ -28,7 +28,7 @@ export default function GamesTable({ searchGameName = "" }) {
 
   return (
     <div>
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mt-5">
+      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mt-5">
         {games?.data.map((game: Game) => (
           <CardGame game={game} key={game.id} />
         ))}

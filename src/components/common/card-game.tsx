@@ -34,7 +34,7 @@ export function CardGame(props: CardGameProps) {
         </div>
         <div className="flex justify-between items-center gap-5">
           <h1
-            className="text-xs truncate max-w-[calc(100%-60px)] overflow-hidden text-slate-400"
+            className="mt-3 text-xs truncate max-w-[calc(100%-60px)] overflow-hidden text-slate-400"
             title={
               props.game.genres
                 ? props.game.genres.map((genre) => genre.name).join(", ")
