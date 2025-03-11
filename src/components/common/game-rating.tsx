@@ -6,10 +6,10 @@ export default function GameRating({ rating }: GameRatingProps) {
   if (rating === undefined) return null;
 
   const getColor = (rating: number) => {
-    if (rating >= 90) return "bg-green-800";
-    if (rating >= 80) return "bg-green-700";
-    if (rating >= 70) return "bg-green-500";
-    if (rating >= 50) return "bg-yellow-400";
+    if (rating > 90) return "bg-teal-800";
+    else if (rating >= 80) return "bg-green-500";
+    else if (rating >= 70) return "bg-emerald-400";
+    else if (rating >= 50) return "bg-yellow-400";
     return "bg-red-500";
   };
 

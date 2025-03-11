@@ -7,9 +7,10 @@ import { getGames } from "@/app/data/game";
 import { LoadingSpinner } from "./loading-spinner";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function GamesTable({ searchGameName = "" }) {
-  const limit = 16;
+  const limit = 24;
   const [offset, setOffset] = useState(0);
 
   const { data: games, isPending } = useQuery({
@@ -35,12 +36,21 @@ export default function GamesTable({ searchGameName = "" }) {
       </div>
       <div className="flex justify-between mt-6">
         <Button
+          variant="outline"
+          size="icon"
           onClick={() => setOffset((prev) => Math.max(0, prev - limit))}
           disabled={offset === 0}
         >
-          Previous
+          <ChevronLeft />
         </Button>
-        <Button onClick={() => setOffset((prev) => prev + limit)}>Next</Button>
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => setOffset((prev) => prev + limit)}
+          disabled={!games?.data || games.data.length < limit}
+        >
+          <ChevronRight />
+        </Button>
       </div>
     </div>
   );

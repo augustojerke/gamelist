@@ -9,7 +9,7 @@ interface CardGameProps {
 
 export function CardGame(props: CardGameProps) {
   return (
-    <div className="flex border rounded-xl overflow-hidden border-border hover:border-primary bg-secondary">
+    <div className="flex border rounded-xl overflow-hidden border-border hover:border-primary bg-secondary transition-transform duration-300 ease-in-out hover:scale-105">
       <div className="flex-shrink-0">
         <Image
           src={
