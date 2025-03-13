@@ -8,14 +8,20 @@ import { LoadingSpinner } from "./loading-spinner";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { GameTableFiltersInterface } from "@/types/game-table-filters";
 
-export default function GamesTable({ searchGameName = "" }) {
+interface GamesTableProps {
+  searchGameName: string;
+  filters: GameTableFiltersInterface;
+}
+
+export default function GamesTable(props: GamesTableProps) {
   const limit = 24;
   const [offset, setOffset] = useState(0);
 
   const { data: games, isPending } = useQuery({
-    queryFn: () => getGames(limit, offset, searchGameName),
-    queryKey: ["get-games", limit, offset, searchGameName],
+    queryFn: () => getGames(limit, offset, props.searchGameName, props.filters),
+    queryKey: ["get-games", limit, offset, props.searchGameName, props.filters],
     retry: false,
   });
 

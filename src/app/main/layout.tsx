@@ -1,4 +1,5 @@
 import Header from "@/components/common/header";
+import QueryProvider from "@/components/providers/queryClientProvider";
 
 export default function RootLayout({
   children,
@@ -8,7 +9,7 @@ export default function RootLayout({
   return (
     <div>
       <Header />
-      {children}
+      <QueryProvider>{children}</QueryProvider>
     </div>
   );
 }

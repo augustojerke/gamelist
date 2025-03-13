@@ -10,7 +10,7 @@ export default function Header() {
 
   return (
     <header className="border-grid sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="flex justify-between items-center px-6 py-4 md:px-16">
+      <div className="flex justify-between items-center px-6 py-4 md:px-10">
         <GamelistTitle className="text-3xl" />
         <div className="hidden md:flex items-center gap-10">
           <nav className="flex gap-10">

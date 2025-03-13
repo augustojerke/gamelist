@@ -8,8 +8,14 @@ import {
   SelectValue,
 } from "../ui/select";
 
-export function SelectOrder({ onChange }: { onChange?: (event: any) => void }) {
-  const [order, setOrder] = useState("asc");
+export function SelectOrder({
+  onChange,
+  value,
+}: {
+  onChange?: (event: any) => void;
+  value: string;
+}) {
+  const [_, setOrder] = useState("desc");
 
   const handleChange = (value: string) => {
     setOrder(value);
@@ -18,7 +24,7 @@ export function SelectOrder({ onChange }: { onChange?: (event: any) => void }) {
   };
 
   return (
-    <Select value={order} onValueChange={handleChange}>
+    <Select value={value} onValueChange={handleChange}>
       <SelectTrigger className="w-[180px]">
         <SelectValue />
       </SelectTrigger>

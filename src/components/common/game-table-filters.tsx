@@ -4,14 +4,15 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { SelectOrder } from "./select-order";
 import { Label } from "../ui/label";
+import { GameTableFiltersInterface } from "@/types/game-table-filters";
 
 export function GameTableFilters({
   onChange,
 }: {
-  onChange?: (filters: Record<string, any>) => void;
+  onChange?: (filters: GameTableFiltersInterface) => void;
 }) {
   const [filters, setFilters] = useState({
-    order: "asc",
+    order: "desc",
   });
 
   const handleFilterChange = (key: string, value: any) => {
@@ -39,6 +40,7 @@ export function GameTableFilters({
               onChange={(event) =>
                 handleFilterChange("order", event.target.value)
               }
+              value={filters.order}
             />
           </div>
         </div>

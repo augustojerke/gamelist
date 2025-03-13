@@ -5,19 +5,16 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { ListFilter, Search } from "lucide-react";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Label } from "@/components/ui/label";
-import { SelectOrder } from "@/components/common/select-order";
+import { Search } from "lucide-react";
+import { GameTableFiltersInterface } from "@/types/game-table-filters";
 import { GameTableFilters } from "@/components/common/game-table-filters";
 
 export default function Games() {
   const [searchGameName, setSearchGameName] = useState("");
   const [query, setQuery] = useState("");
+  const [filter, setFilters] = useState<GameTableFiltersInterface>({
+    order: "desc",
+  });
 
   const handleSearch = () => {
     setQuery(searchGameName);
@@ -40,10 +37,10 @@ export default function Games() {
         >
           <Search />
         </Button>
-        <GameTableFilters />
+        <GameTableFilters onChange={(e) => setFilters(e)} />
       </div>
       <Separator className="mt-5" />
-      <GamesTable searchGameName={query} />
+      <GamesTable searchGameName={query} filters={filter} />
     </div>
   );
 }
