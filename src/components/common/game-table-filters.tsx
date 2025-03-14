@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { ListFilter } from "lucide-react";
+import { ArrowUpDown, ListFilter } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { SelectOrder } from "./select-order";
 import { Label } from "../ui/label";
 import { GameTableFiltersInterface } from "@/types/game-table-filters";
+import { SelectGenre } from "./select-genre";
 
 export function GameTableFilters({
   onChange,
@@ -13,6 +14,7 @@ export function GameTableFilters({
 }) {
   const [filters, setFilters] = useState({
     order: "desc",
+    genre: "",
   });
 
   const handleFilterChange = (key: string, value: any) => {
@@ -35,12 +37,26 @@ export function GameTableFilters({
             <h4 className="font-medium leading-none">Filters</h4>
           </div>
           <div className="grid grid-cols-3 items-center gap-4">
-            <Label htmlFor="order">Order:</Label>
+            <div className="flex justify-start items-center gap-2">
+              <ArrowUpDown size={20} />
+              <Label>Order:</Label>
+            </div>
             <SelectOrder
               onChange={(event) =>
                 handleFilterChange("order", event.target.value)
               }
               value={filters.order}
+            />
+          </div>
+          <div className="grid grid-cols-3 items-center gap-4">
+            <div className="flex justify-start items-center gap-2">
+              <Label>Genres:</Label>
+            </div>
+            <SelectGenre
+              onChange={(event) =>
+                handleFilterChange("genre", event.target.value)
+              }
+              value={filters.genre}
             />
           </div>
         </div>

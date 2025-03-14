@@ -7,9 +7,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { ArrowDown, ArrowUp } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { getGenres } from "@/app/data/genres";
 
-export function SelectOrder({
+export function SelectGenre({
   onChange,
   value,
 }: {
@@ -24,6 +25,11 @@ export function SelectOrder({
     onChange?.(event);
   };
 
+  const { data: genres } = useQuery({
+    queryFn: () => getGenres(),
+    queryKey: ["get-genres"],
+  });
+
   return (
     <Select value={value} onValueChange={handleChange}>
       <SelectTrigger className="w-[180px]">
@@ -31,18 +37,11 @@ export function SelectOrder({
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectItem value="asc">
-            <div className="flex justify-start items-center gap-2">
-              <ArrowUp size={18} />
-              Lower to Higher
-            </div>
-          </SelectItem>
-          <SelectItem value="desc">
-            <div className="flex justify-start items-center gap-2">
-              <ArrowDown size={18} />
-              Higher to Lower
-            </div>
-          </SelectItem>
+          {genres?.data.map((g) => (
+            <SelectItem value={g.checksum} key={g.checksum}>
+              {g.name}
+            </SelectItem>
+          ))}
         </SelectGroup>
       </SelectContent>
     </Select>
