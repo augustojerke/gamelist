@@ -45,7 +45,7 @@ export function CardGame(props: CardGameProps) {
               ? props.game.genres.map((genre) => genre.name).join(", ")
               : ""}
           </h1>
-          <GameRating rating={props.game.aggregated_rating} />
+          <GameRating rating={props.game.total_rating} />
         </div>
       </div>
     </div>

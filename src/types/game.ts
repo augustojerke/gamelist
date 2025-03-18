@@ -4,7 +4,7 @@ export interface Game{
     cover : {
         url: string
     }
-    aggregated_rating: number | undefined
+    total_rating: number | undefined
     first_release_date: Date
     genres: [
         {

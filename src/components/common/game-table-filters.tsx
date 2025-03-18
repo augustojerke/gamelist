@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import { SelectOrder } from "./select-order";
 import { Label } from "../ui/label";
 import { GameTableFiltersInterface } from "@/types/game-table-filters";
-import { SelectGenre } from "./select-genre";
+import { MultiSelectGenre } from "./multi-select-genre";
 
 export function GameTableFilters({
   onChange,
@@ -14,13 +14,14 @@ export function GameTableFilters({
 }) {
   const [filters, setFilters] = useState({
     order: "desc",
-    genre: "",
+    genre: [],
   });
 
   const handleFilterChange = (key: string, value: any) => {
     const newFilters = { ...filters, [key]: value };
     setFilters(newFilters);
     onChange?.(newFilters);
+    console.log(newFilters);
   };
 
   return (
@@ -52,9 +53,9 @@ export function GameTableFilters({
             <div className="flex justify-start items-center gap-2">
               <Label>Genres:</Label>
             </div>
-            <SelectGenre
-              onChange={(event) =>
-                handleFilterChange("genre", event.target.value)
+            <MultiSelectGenre
+              onChange={(selectedGenres) =>
+                handleFilterChange("genre", selectedGenres)
               }
               value={filters.genre}
             />

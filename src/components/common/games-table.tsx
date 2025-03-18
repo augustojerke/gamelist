@@ -5,7 +5,7 @@ import { CardGame } from "./card-game";
 import { useQuery } from "@tanstack/react-query";
 import { getGames } from "@/app/data/game";
 import { LoadingSpinner } from "./loading-spinner";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { GameTableFiltersInterface } from "@/types/game-table-filters";
@@ -18,6 +18,10 @@ interface GamesTableProps {
 export default function GamesTable(props: GamesTableProps) {
   const limit = 24;
   const [offset, setOffset] = useState(0);
+
+  useEffect(() => {
+    setOffset(0);
+  }, [props.searchGameName]);
 
   const { data: games, isPending } = useQuery({
     queryFn: () => getGames(limit, offset, props.searchGameName, props.filters),

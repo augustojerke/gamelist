@@ -28,6 +28,11 @@ export default function Games() {
           placeholder="Search Game"
           value={searchGameName}
           onChange={(e) => setSearchGameName(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleSearch();
+            }
+          }}
         />
         <Button
           variant="outline"

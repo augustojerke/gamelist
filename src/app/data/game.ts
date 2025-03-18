@@ -9,7 +9,7 @@ export async function getGames(
   searchGameName: string,
   filters: GameTableFiltersInterface
 ): AxiosPromise<Game[]> {
-  let bodyParams = `fields name, aggregated_rating, cover.url, first_release_date, genres.name; 
+  let bodyParams = `fields name, total_rating, cover.url, first_release_date, genres.name; 
     where version_parent = null & category = (0,1,8,9) & first_release_date != null`;
 
   if (searchGameName.trim() !== "") {
@@ -19,7 +19,7 @@ export async function getGames(
   bodyParams += `
     ;limit ${limit}; 
     offset ${offset};
-    sort aggregated_rating ${filters.order};`;
+    sort total_rating ${filters.order};`;
 
   const response = await apiIgdb.post("/getGames", bodyParams);
   return response;
