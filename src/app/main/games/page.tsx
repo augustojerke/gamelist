@@ -14,6 +14,7 @@ export default function Games() {
   const [query, setQuery] = useState("");
   const [filter, setFilters] = useState<GameTableFiltersInterface>({
     order: "desc",
+    genres: [],
   });
 
   const handleSearch = () => {

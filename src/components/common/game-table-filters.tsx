@@ -12,16 +12,15 @@ export function GameTableFilters({
 }: {
   onChange?: (filters: GameTableFiltersInterface) => void;
 }) {
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<GameTableFiltersInterface>({
     order: "desc",
-    genre: [],
+    genres: [],
   });
 
   const handleFilterChange = (key: string, value: any) => {
     const newFilters = { ...filters, [key]: value };
     setFilters(newFilters);
     onChange?.(newFilters);
-    console.log(newFilters);
   };
 
   return (
@@ -55,9 +54,9 @@ export function GameTableFilters({
             </div>
             <MultiSelectGenre
               onChange={(selectedGenres) =>
-                handleFilterChange("genre", selectedGenres)
+                handleFilterChange("genres", selectedGenres)
               }
-              value={filters.genre}
+              value={filters.genres}
             />
           </div>
         </div>

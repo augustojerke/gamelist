@@ -16,6 +16,12 @@ export async function getGames(
     bodyParams += ` & name ~ *"${searchGameName}"*`;
   }
 
+  if(filters.genres.length != 0){
+    bodyParams += ` & genres.checksum = (${filters.genres.join(",")})`
+  }
+  console.log(filters)
+  console.log(bodyParams)
+
   bodyParams += `
     ;limit ${limit}; 
     offset ${offset};
