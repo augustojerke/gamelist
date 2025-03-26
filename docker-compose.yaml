@@ -14,4 +14,4 @@ services:
       - gamelist_pg_data:/bitnami/postgresql
 
 volumes:
-  pixproject_pg_data:
+  gamelist_pg_data:

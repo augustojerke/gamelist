@@ -19,8 +19,6 @@ export async function getGames(
   if(filters.genres.length != 0){
     bodyParams += ` & genres.checksum = (${filters.genres.join(",")})`
   }
-  console.log(filters)
-  console.log(bodyParams)
 
   bodyParams += `
     ;limit ${limit}; 
