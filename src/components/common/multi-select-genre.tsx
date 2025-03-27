@@ -4,7 +4,7 @@ import { Popover, PopoverTrigger, PopoverContent } from "../ui/popover";
 import { Button } from "../ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { getGenres } from "@/app/data/genres";
-import { Loader2 } from "lucide-react";
+import { Loader2, X } from "lucide-react";
 
 interface Genre {
   checksum: string;
@@ -35,26 +35,45 @@ export function MultiSelectGenre({
     onChange?.(newSelected);
   };
 
+  const clearSelection = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setSelectedValues([]);
+    onChange?.([]);
+  };
+
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          className="w-[180px] justify-between text-slate-400"
-          disabled={isLoading}
-        >
-          {isLoading ? (
-            <Loader2 className="animate-spin mx-auto" size={20} />
-          ) : selectedValues.length > 0 ? (
-            genres?.data
-              .filter((g) => selectedValues.includes(g.checksum))
-              .map((g) => g.name)
-              .join(", ")
-          ) : (
-            "Select Genres..."
-          )}
-        </Button>
+        <div className="relative w-[220px]">
+          <Button
+            variant="outline"
+            className="w-full flex items-center justify-between text-slate-400"
+            disabled={isLoading}
+          >
+            <span className="text-ellipsis overflow-hidden whitespace-nowrap flex-1 text-left">
+              {isLoading ? (
+                <Loader2 className="animate-spin mx-auto" size={20} />
+              ) : selectedValues.length > 0 ? (
+                genres?.data
+                  .filter((g) => selectedValues.includes(g.checksum))
+                  .map((g) => g.name)
+                  .join(", ")
+              ) : (
+                "Select Genres..."
+              )}
+            </span>
+
+            {selectedValues.length > 0 && (
+              <X
+                size={16}
+                className="text-slate-600 ml-2 cursor-pointer hover:text-red-700"
+                onClick={clearSelection}
+              />
+            )}
+          </Button>
+        </div>
       </PopoverTrigger>
+
       <PopoverContent className="w-[180px] p-2 max-h-[200px] overflow-y-auto">
         {isLoading ? (
           <div className="flex justify-center p-4">

@@ -46,7 +46,7 @@ export default function GamesTable(props: GamesTableProps) {
       </div>
       <div className="flex justify-between mt-6">
         <Button
-          variant="outline"
+          variant="main"
           size="icon"
           onClick={() => setOffset((prev) => Math.max(0, prev - limit))}
           disabled={offset === 0}
@@ -54,7 +54,7 @@ export default function GamesTable(props: GamesTableProps) {
           <ChevronLeft />
         </Button>
         <Button
-          variant="outline"
+          variant="main"
           size="icon"
           onClick={() => setOffset((prev) => prev + limit)}
           disabled={!games?.data || games.data.length < limit}

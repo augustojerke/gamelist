@@ -7,16 +7,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { ArrowDown, ArrowUp } from "lucide-react";
+import { ArrowUpAZ, Calendar, Star } from "lucide-react";
 
-export function SelectOrder({
+export function SelectSortType({
   onChange,
   value,
 }: {
   onChange?: (event: any) => void;
   value: string;
 }) {
-  const [_, setOrder] = useState("desc");
+  const [_, setOrder] = useState("total_rating");
 
   const handleChange = (value: string) => {
     setOrder(value);
@@ -31,16 +31,22 @@ export function SelectOrder({
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectItem value="asc">
+          <SelectItem value="total_rating">
             <div className="flex justify-start items-center gap-2 text-muted-foreground">
-              <ArrowUp size={18} />
-              Lower to Higher
+              <Star size={20}/>
+              Rating
             </div>
           </SelectItem>
-          <SelectItem value="desc">
+          <SelectItem value="name">
             <div className="flex justify-start items-center gap-2 text-muted-foreground">
-              <ArrowDown size={18} />
-              Higher to Lower
+              <ArrowUpAZ size={20}/>
+              Name
+            </div>
+          </SelectItem>
+          <SelectItem value="first_release_date">
+            <div className="flex justify-start items-center gap-2 text-muted-foreground">
+              <Calendar size={20}/>
+              Year
             </div>
           </SelectItem>
         </SelectGroup>

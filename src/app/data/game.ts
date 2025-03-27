@@ -15,16 +15,23 @@ export async function getGames(
 
   if (searchGameName.trim() !== "") {
     bodyParams += ` & name ~ *"${searchGameName}"*`;
-  }
+  }  
 
-  console.log(await getGenresId(filters.genres));
+  if (filters.genres.length > 0) {
+    const genreResponse = await getGenresId(filters.genres);
+    const genreIds = genreResponse.data.map((genre: { id: number }) => genre.id);    
+    
+    if (genreIds.length > 0) {
+      const genreConditions = genreIds.map((id) => `genres = (${id})`).join(" & ");
+      bodyParams += ` & ${genreConditions}`;
+    }
+  }
   
   bodyParams += `
     ;limit ${limit}; 
     offset ${offset};
-    sort total_rating ${filters.order};`;
-
-  console.log(bodyParams)
+    sort ${filters.sortType} ${filters.order};`;
+    
 
   const response = await apiIgdb.post("/getGames", bodyParams);
   return response;

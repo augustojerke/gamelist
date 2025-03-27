@@ -3,6 +3,7 @@ import { ModeToggle } from "@/components/common/dark-mode-toggle";
 import GamelistTitle from "@/components/common/gamelist-title";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -13,8 +14,12 @@ export default function Home() {
       <header className="text-center mb-12">
         <GamelistTitle className="text-6xl" />
         <p className="mt-4">A place to control your gaming</p>
-        <Button className="mt-5 mr-3 w-28 font-bold">Sign in</Button>
-        <Button className="mt-5 w-28 font-bold">Sign up</Button>
+        <Link href="/login">
+          <Button className="mt-5 mr-3 w-28 font-bold">Sign in</Button>
+        </Link>
+        <Link href="/signup">
+          <Button className="mt-5 w-28 font-bold">Sign up</Button>
+        </Link>                
       </header>
       {/* <section className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl">
         <Card>

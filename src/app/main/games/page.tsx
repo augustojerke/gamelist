@@ -17,6 +17,7 @@ export default function Games() {
   const [filter, setFilters] = useState<GameTableFiltersInterface>({
     order: "desc",
     genres: [],
+    sortType: "total_rating"
   });
 
   const queryClient = useQueryClient();
@@ -47,7 +48,7 @@ export default function Games() {
           }}
         />
         <Button
-          variant="outline"
+          variant="main"
           size="icon"
           className="h-9"
           onClick={handleSearch}

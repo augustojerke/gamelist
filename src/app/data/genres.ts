@@ -10,7 +10,6 @@ export async function getGenres(): AxiosPromise<Genre[]> {
 }
 
 export async function getGenresId(checksums: string[]): AxiosPromise<Genre[]> {
-  // Se o array de checksums estiver vazio, não adiciona a cláusula "where"
   let bodyParams = `
     fields checksum, name, id;
     limit 500;
@@ -18,8 +17,8 @@ export async function getGenresId(checksums: string[]): AxiosPromise<Genre[]> {
 
   if (checksums.length > 0) {
     const checksumConditions = checksums
-      .map((checksum) => `checksum = "${checksum}"`)
-      .join(" | ");  // Usando " | " para combinar os checksums
+      .map((checksum) => `checksum = ("${checksum}")`)
+      .join(" | ");
     bodyParams = `
       fields checksum, name, id;
       where ${checksumConditions};
@@ -27,10 +26,7 @@ export async function getGenresId(checksums: string[]): AxiosPromise<Genre[]> {
     `;
   }
 
-  console.log(bodyParams);  // Para depuração
-
-  // Fazer a requisição para a IGDB API
   const response = await apiIgdb.post("/getGenres", bodyParams);
-  return response.data;
+  return response;
 }
 
