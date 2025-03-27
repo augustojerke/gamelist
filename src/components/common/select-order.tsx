@@ -26,19 +26,19 @@ export function SelectOrder({
 
   return (
     <Select value={value} onValueChange={handleChange}>
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger className="w-[180px] text-muted-foreground">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
           <SelectItem value="asc">
-            <div className="flex justify-start items-center gap-2">
+            <div className="flex justify-start items-center gap-2 text-muted-foreground">
               <ArrowUp size={18} />
               Lower to Higher
             </div>
           </SelectItem>
           <SelectItem value="desc">
-            <div className="flex justify-start items-center gap-2">
+            <div className="flex justify-start items-center gap-2 text-muted-foreground">
               <ArrowDown size={18} />
               Higher to Lower
             </div>

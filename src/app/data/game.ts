@@ -18,7 +18,7 @@ export async function getGames(
   }
 
   console.log(await getGenresId(filters.genres));
-
+  
   bodyParams += `
     ;limit ${limit}; 
     offset ${offset};

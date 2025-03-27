@@ -4,10 +4,12 @@ import GamesTable from "@/components/common/games-table";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Search } from "lucide-react";
 import { GameTableFiltersInterface } from "@/types/game-table-filters";
 import { GameTableFilters } from "@/components/common/game-table-filters";
+import { useQueryClient } from "@tanstack/react-query";
+import { getGenres } from "@/app/data/genres";
 
 export default function Games() {
   const [searchGameName, setSearchGameName] = useState("");
@@ -16,6 +18,15 @@ export default function Games() {
     order: "desc",
     genres: [],
   });
+
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    queryClient.prefetchQuery({
+      queryKey: ["get-genres"],
+      queryFn: getGenres,
+    });
+  }, [])
 
   const handleSearch = () => {
     setQuery(searchGameName);
