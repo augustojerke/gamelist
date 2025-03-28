@@ -1,4 +1,3 @@
-"use client";
 import { ModeToggle } from "@/components/common/dark-mode-toggle";
 import GamelistTitle from "@/components/common/gamelist-title";
 import { Button } from "@/components/ui/button";
@@ -19,7 +18,7 @@ export default function Home() {
         </Link>
         <Link href="/signup">
           <Button className="mt-5 w-28 font-bold">Sign up</Button>
-        </Link>                
+        </Link>
       </header>
       {/* <section className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl">
         <Card>

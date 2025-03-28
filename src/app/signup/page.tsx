@@ -1,4 +1,3 @@
-"use client";
 import { ModeToggle } from "@/components/common/dark-mode-toggle";
 import GamelistTitle from "@/components/common/gamelist-title";
 import { SignUpForm } from "@/components/forms/signup-form";

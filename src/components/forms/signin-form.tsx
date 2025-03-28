@@ -21,42 +21,33 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { createUser } from "@/app/data/user";
 import { useToast } from "@/hooks/use-toast";
 
 const formSchema = z.object({
-  id: z.string(),
-  username: z
-    .string()
-    .min(2, "Username must be at least 2 characters.")
-    .max(50),
   email: z.string().email("Invalid email address."),
   password: z.string().min(6, "Password must be at least 6 characters."),
 });
 
-export function SignUpForm({ ...props }) {
+export function SignInForm({ ...props }) {
   const { toast } = useToast();
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      id: "",
-      username: "",
       email: "",
       password: "",
     },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const user = await createUser(values);
-    if (!user.success) {
-      toast({
-        title: "Warning",
-        description: user.message,
-        variant: "destructive",
-        duration: 6000,
-      });
-    }
+    // if (!user.success) {
+    //   toast({
+    //     title: "Warning",
+    //     description: user.message,
+    //     variant: "destructive",
+    //     duration: 6000,
+    //   });
+    // }
   }
 
   return (
