@@ -21,8 +21,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { createUser } from "@/app/data/user";
 
 const formSchema = z.object({
+  id: z.string(),
   username: z
     .string()
     .min(2, "Username must be at least 2 characters.")
@@ -35,14 +37,15 @@ export function SignUpForm({ ...props }) {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      id: "",
       username: "",
       email: "",
       password: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    await createUser(values);
   }
 
   return (
@@ -62,7 +65,7 @@ export function SignUpForm({ ...props }) {
                   <FormItem>
                     <FormLabel>Username</FormLabel>
                     <FormControl>
-                      <Input placeholder="Your username" {...field} />
+                      <Input {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -94,11 +97,7 @@ export function SignUpForm({ ...props }) {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input
-                        type="password"
-                        placeholder="Your password"
-                        {...field}
-                      />
+                      <Input type="password" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
