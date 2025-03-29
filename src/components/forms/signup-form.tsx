@@ -56,6 +56,8 @@ export function SignUpForm({ ...props }) {
         variant: "destructive",
         duration: 6000,
       });
+    } else {
+      window.location.href = "/login";
     }
   }
 

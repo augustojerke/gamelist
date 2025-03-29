@@ -4,16 +4,20 @@ import Link from "next/link";
 import GamelistTitle from "./gamelist-title";
 import { ModeToggle } from "./dark-mode-toggle";
 import { Menu, X } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useSession } from "next-auth/react";
+import { AvatarDropdown } from "./avatar-dropdown";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const { data: session, status } = useSession();
 
   return (
     <header className="border-grid sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="flex justify-between items-center px-6 py-4 md:px-10">
-        <GamelistTitle className="text-3xl" />
-        <div className="hidden md:flex items-center gap-10">
-          <nav className="flex gap-10">
+      <div className="flex justify-between items-center px-10 py-4">
+        <div className="flex items-center gap-10">
+          <GamelistTitle className="text-3xl" />
+          <nav className="hidden md:flex gap-10">
             <Link href="/?" className="text-md">
               Games
             </Link>
@@ -24,10 +28,30 @@ export default function Header() {
               Save
             </Link>
           </nav>
+        </div>
+        <div className="hidden md:flex items-center gap-6">
+          <div className="flex items-center gap-3">
+            <AvatarDropdown name={session?.user.username}>
+              <Avatar>
+                <AvatarImage src="/avatar.png" alt="Avatar" />
+                <AvatarFallback>
+                  {session?.user.username.charAt(0).toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
+            </AvatarDropdown>
+          </div>
           <ModeToggle />
         </div>
         <div className="flex items-center gap-4 md:hidden">
           <ModeToggle />
+          <AvatarDropdown name={session?.user.username}>
+            <Avatar>
+              <AvatarImage src="/avatar.png" alt="Avatar" />
+              <AvatarFallback>
+                {session?.user.username.charAt(0).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
+          </AvatarDropdown>
           <button onClick={() => setIsOpen(!isOpen)} className="p-2">
             <Menu size={24} className="hover:text-slate-400" />
           </button>

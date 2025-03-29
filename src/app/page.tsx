@@ -14,7 +14,7 @@ export default function Home() {
         <GamelistTitle className="text-6xl" />
         <p className="mt-4">A place to control your gaming</p>
         <Link href="/login">
-          <Button className="mt-5 mr-3 w-28 font-bold">Sign in</Button>
+          <Button className="mt-5 mr-3 w-28 font-bold">Login</Button>
         </Link>
         <Link href="/signup">
           <Button className="mt-5 w-28 font-bold">Sign up</Button>

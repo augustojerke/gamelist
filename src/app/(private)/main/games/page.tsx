@@ -17,7 +17,7 @@ export default function Games() {
   const [filter, setFilters] = useState<GameTableFiltersInterface>({
     order: "desc",
     genres: [],
-    sortType: "total_rating"
+    sortType: "total_rating",
   });
 
   const queryClient = useQueryClient();
@@ -27,7 +27,7 @@ export default function Games() {
       queryKey: ["get-genres"],
       queryFn: getGenres,
     });
-  }, [])
+  }, []);
 
   const handleSearch = () => {
     setQuery(searchGameName);
@@ -37,7 +37,7 @@ export default function Games() {
     <div className="px-10 py-6">
       <div className="flex justify-start items-center gap-2">
         <Input
-          className="w-1/2 xl:w-1/4"
+          className="w-full xl:w-1/4"
           placeholder="Search Game"
           value={searchGameName}
           onChange={(e) => setSearchGameName(e.target.value)}
@@ -50,7 +50,7 @@ export default function Games() {
         <Button
           variant="main"
           size="icon"
-          className="h-9"
+          className="h-9 w-16 xl:w-10"
           onClick={handleSearch}
         >
           <Search />

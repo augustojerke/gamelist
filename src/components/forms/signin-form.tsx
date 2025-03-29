@@ -22,6 +22,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
+import { signIn } from "next-auth/react";
 
 const formSchema = z.object({
   email: z.string().email("Invalid email address."),
@@ -40,40 +41,38 @@ export function SignInForm({ ...props }) {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // if (!user.success) {
-    //   toast({
-    //     title: "Warning",
-    //     description: user.message,
-    //     variant: "destructive",
-    //     duration: 6000,
-    //   });
-    // }
+    const res = await signIn("credentials", {
+      email: values.email,
+      password: values.password,
+      redirect: false,
+    });
+    if (res?.error) {
+      toast({
+        title: "Login Error",
+        description: res.error,
+        variant: "destructive",
+        duration: 6000,
+      });
+    } else {
+      toast({
+        title: "Login success!",
+        description: "Redirecting...",
+      });
+
+      window.location.href = "/main/games";
+    }
   }
 
   return (
     <div className={cn("flex flex-col gap-6")} {...props}>
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl">Sign up</CardTitle>
-          <CardDescription>Sign up to your account</CardDescription>
+          <CardTitle className="text-2xl">Login</CardTitle>
+          <CardDescription>Login to your account</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <FormField
-                control={form.control}
-                name="username"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Username</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
               <FormField
                 control={form.control}
                 name="email"
@@ -112,7 +111,7 @@ export function SignInForm({ ...props }) {
                 loading={form.formState.isSubmitting}
                 disabled={form.formState.isSubmitting}
               >
-                Sign up
+                Login
               </Button>
             </form>
           </Form>
