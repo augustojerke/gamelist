@@ -2,6 +2,7 @@ import { formateDateUnixToYear } from "@/lib/dateUtils";
 import { Game } from "@/types/game";
 import Image from "next/image";
 import GameRating from "./game-rating";
+import Link from "next/link";
 
 interface CardGameProps {
   game: Game;
@@ -9,7 +10,10 @@ interface CardGameProps {
 
 export function CardGame(props: CardGameProps) {
   return (
-    <div className="flex border rounded-xl overflow-hidden border-border hover:border-primary bg-secondary transition-transform duration-300 ease-in-out hover:scale-105">
+    <Link
+      href={`/main/games/${props.game.id}`}
+      className="flex border rounded-xl overflow-hidden border-border hover:border-primary bg-secondary transition-transform duration-300 ease-in-out hover:scale-105"
+    >
       <div className="flex-shrink-0">
         <Image
           src={
@@ -48,6 +52,6 @@ export function CardGame(props: CardGameProps) {
           <GameRating rating={props.game.total_rating} />
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
