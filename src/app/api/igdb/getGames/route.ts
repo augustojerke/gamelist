@@ -8,10 +8,10 @@ export async function POST(req: Request) {
   try {
     const response = await axios.post(API_URL, await req.text(), {
       headers: {
-        "Accept": "application/json",
+        Accept: "application/json",
         "Content-Type": "text/plain",
         "Client-ID": "5bdscsiy0xzjdzdud6f7wbs76siaxi",
-        "Authorization": `Bearer ${AUTH_TOKEN}`,
+        Authorization: `Bearer ${AUTH_TOKEN}`,
       },
     });
 

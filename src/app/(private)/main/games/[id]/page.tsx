@@ -1,6 +1,7 @@
-import { use } from "react";
+import { getGamesById } from "@/app/data/game";
 
-export default function Game({ params }: any) {
-  const { id }: any = use(params);
+export default async function Game({ params }: any) {
+  const { id }: any = await params;
+  console.log(await getGamesById(id));
   return <h1>{id}</h1>;
 }

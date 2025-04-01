@@ -15,24 +15,36 @@ export async function getGames(
 
   if (searchGameName.trim() !== "") {
     bodyParams += ` & name ~ *"${searchGameName}"*`;
-  }  
+  }
 
   if (filters.genres.length > 0) {
     const genreResponse = await getGenresId(filters.genres);
-    const genreIds = genreResponse.data.map((genre: { id: number }) => genre.id);    
-    
+    const genreIds = genreResponse.data.map(
+      (genre: { id: number }) => genre.id
+    );
+
     if (genreIds.length > 0) {
-      const genreConditions = genreIds.map((id) => `genres = (${id})`).join(" & ");
+      const genreConditions = genreIds
+        .map((id) => `genres = (${id})`)
+        .join(" & ");
       bodyParams += ` & ${genreConditions}`;
     }
   }
-  
+
   bodyParams += `
     ;limit ${limit}; 
     offset ${offset};
     sort ${filters.sortType} ${filters.order};`;
-    
 
   const response = await apiIgdb.post("/getGames", bodyParams);
+  return response;
+}
+
+export async function getGamesById(id: number) {
+  let bodyParams = `fields *; where id = ${id};`;
+  const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/getGames", {
+    method: "POST",
+    body: bodyParams,
+  });
   return response;
 }
