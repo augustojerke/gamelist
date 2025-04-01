@@ -41,10 +41,13 @@ export async function getGames(
 }
 
 export async function getGamesById(id: number) {
-  let bodyParams = `fields *; where id = ${id};`;
-  const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/getGames", {
-    method: "POST",
-    body: bodyParams,
-  });
+  let bodyParams = `fields *, artworks.url, cover.url; where id = ${id};`;
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_BASE_URL + "/api/igdb/getGames",
+    {
+      method: "POST",
+      body: bodyParams,
+    }
+  );
   return response;
 }

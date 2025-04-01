@@ -14,7 +14,6 @@ export async function POST(req: Request) {
         Authorization: `Bearer ${AUTH_TOKEN}`,
       },
     });
-
     return NextResponse.json(response.data);
   } catch (error: any) {
     return NextResponse.json(
