@@ -9,7 +9,7 @@ export async function getGenres(): AxiosPromise<Genre[]> {
   return response;
 }
 
-export async function getGenresId(checksums: string[]): AxiosPromise<Genre[]> {
+export async function getGenresId(checksums: string[]) {
   let bodyParams = `
     fields checksum, name, id;
     limit 500;
@@ -26,7 +26,37 @@ export async function getGenresId(checksums: string[]): AxiosPromise<Genre[]> {
     `;
   }
 
-  const response = await apiIgdb.post("/getGenres", bodyParams);
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_BASE_URL + "/api/igdb/getGenres",
+    {
+      method: "POST",
+      body: bodyParams,
+    }
+  );
   return response;
 }
 
+export async function getGenresIdReal(ids: number[]) {
+  let bodyParams = `
+    fields checksum, name, id;
+    limit 500;
+  `;
+
+  if (ids.length > 0) {
+    const idConditions = ids.map((id) => `id = ${id}`).join(" | ");
+    bodyParams = `
+      fields checksum, name, id;
+      where ${idConditions};
+      limit 500;
+    `;
+  }
+
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_BASE_URL + "/api/igdb/getGenres",
+    {
+      method: "POST",
+      body: bodyParams,
+    }
+  );
+  return response;
+}

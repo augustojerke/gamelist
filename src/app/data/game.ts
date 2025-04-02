@@ -18,14 +18,14 @@ export async function getGames(
   }
 
   if (filters.genres.length > 0) {
-    const genreResponse = await getGenresId(filters.genres);
+    const genreResponse: any = await getGenresId(filters.genres);
     const genreIds = genreResponse.data.map(
       (genre: { id: number }) => genre.id
     );
 
     if (genreIds.length > 0) {
       const genreConditions = genreIds
-        .map((id) => `genres = (${id})`)
+        .map((id: any) => `genres = (${id})`)
         .join(" & ");
       bodyParams += ` & ${genreConditions}`;
     }
