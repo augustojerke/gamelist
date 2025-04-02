@@ -3,18 +3,47 @@ import { Game } from "@/types/game";
 import Image from "next/image";
 import GameRating from "./game-rating";
 import Link from "next/link";
+import { useState } from "react";
+import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface CardGameProps {
   game: Game;
 }
 
 export function CardGame(props: CardGameProps) {
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    setTimeout(() => {
+      router.push(`/main/games/${props.game.id}`);
+    }, 300);
+  };
+
   return (
     <Link
       href={`/main/games/${props.game.id}`}
-      className="flex border rounded-xl overflow-hidden border-border hover:border-primary bg-secondary transition-transform duration-300 ease-in-out hover:scale-105"
+      className={`relative flex border rounded-xl overflow-hidden border-border hover:border-primary bg-secondary transition-transform duration-300 ease-in-out hover:scale-105 ${
+        loading ? "pointer-events-none" : ""
+      }`}
     >
-      <div className="flex-shrink-0">
+      {loading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-opacity opacity-100 z-10">
+          <Loader2 className="w-10 h-10 animate-spin text-white" />
+        </div>
+      )}
+      <button
+        className="absolute inset-0 w-full h-full"
+        onClick={(e) => {
+          e.preventDefault();
+          setLoading(true);
+          router.push(`/main/games/${props.game.id}`);
+        }}
+      />
+      <div className={`flex-shrink-0 ${loading ? "blur-md" : ""}`}>
         <Image
           src={
             props.game.cover?.url
@@ -27,7 +56,11 @@ export function CardGame(props: CardGameProps) {
           className="h-full object-cover"
         />
       </div>
-      <div className="flex-1 flex flex-col justify-between p-3 text-left bg-card h-full shadow-xl overflow-hidden">
+      <div
+        className={`flex-1 flex flex-col justify-between p-3 text-left bg-card h-full shadow-xl overflow-hidden ${
+          loading ? "blur-md" : ""
+        }`}
+      >
         <div>
           <h1 className="font-bold text-sm truncate" title={props.game.name}>
             {props.game.name}
