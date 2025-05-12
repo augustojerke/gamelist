@@ -3,8 +3,8 @@ export async function fetchIGDBToken() {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: new URLSearchParams({
-      client_id: process.env.TWITCH_CLIENT_ID!,
-      client_secret: process.env.TWITCH_CLIENT_SECRET!,
+      client_id: process.env.NEXT_PUBLIC_TWITCH_CLIENT_ID!,
+      client_secret: process.env.NEXT_PUBLIC_TWITCH_CLIENT_SECRET!,
       grant_type: "client_credentials",
     }),
   });
