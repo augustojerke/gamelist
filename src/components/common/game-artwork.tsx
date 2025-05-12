@@ -16,7 +16,7 @@ export function GameArtwork(props: GameArtworkProps) {
         alt="Game Artwork"
         layout="fill"
         objectFit="cover"
-        className="mask-fade blur-[3px] brightness-[0.50]"
+        className="mask-fade blur-[3px] brightness-[0.65]"
       />
     </div>
   );

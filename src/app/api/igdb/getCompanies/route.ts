@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import axios from "axios";
+import { getIGDBToken } from "@/lib/tokenStore";
 
 const API_URL = "https://api.igdb.com/v4/companies";
-const AUTH_TOKEN = process.env.API_IGDB_TOKEN;
+const AUTH_TOKEN = await getIGDBToken();
 
 export async function POST(req: Request) {
   try {
@@ -10,7 +11,7 @@ export async function POST(req: Request) {
       headers: {
         Accept: "application/json",
         "Content-Type": "text/plain",
-        "Client-ID": "5bdscsiy0xzjdzdud6f7wbs76siaxi",
+        "Client-ID": process.env.API_IGDB_CLIENTID,
         Authorization: `Bearer ${AUTH_TOKEN}`,
       },
     });
